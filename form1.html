@@ -1,0 +1,141 @@
+<html>
+    <body>
+        <form action="welcome.php" method="post">
+            Name: <input type="text" name="name" id="name"><br>
+            E-mail: <input type="text" name="email"><br>
+
+            <input type="text" id="txtPrice"
+                   pattern="\d+(\.\d*)?" required
+                   placeholder="Enter item price"
+                   title="Enter the price of your item as a value greater than 0."
+                   onChange="val()"> 
+            <br>
+
+            <label><input type="radio" name="optColour" value="red">Red</label><br>
+            <label><input type="radio" name="optColour" value="green">Green</label><br>
+            <label><input type="radio" name="optColour" value="blue">Blue</label><br>
+            <label><input type="checkbox" name="chkPhp" value="php">I like PHP</label><br>
+            <input type="submit">
+
+        </form>
+        <p id="outputJS">hello</p>
+
+
+        <!--To validate check boxes and radio buttons, use the .checked property. Don't use 
+        the value property: this property is set regardless of the check box's or radio button's checked state,--> 
+        <label><input type="checkbox" id="chkFun" name="chkFun"
+                      value="FUN"> I am having fun!</label><br>
+        My favourite language so far:<br>
+        <fieldset>
+            <label><input type="radio" id="radJava" name="lang" value="java"> Java</label>
+            <label><input type="radio" id="radPHP" name="lang" value="php"> PHP</label>
+            <label><input type="radio" id="radJs" name="lang" value="js"> JavaScript</label>
+        </fieldset>
+        <button id="btnOk" type="button">Show languages</button><br><br>
+
+
+        <!--If your form includes a <select> list, you might wish to make sure that the user
+        has selected an item in the list. For example, say you were asking about pets:-->
+        <select id="lstAnimals">
+            <option value="" selected>-= Favourite Pet =-</option>
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="ferret">Ferret</option>
+            <option value="fish">Fish</option>
+            <option value="other">Other</option>
+        </select><br>
+        <input type="text" id="txtOther" placeholder="Other kind of pet." disabled>
+        <br><button id="btnOklstAnimals" type="button">lstAnimals</button>
+
+
+        <script>
+            // one
+            console.log("js");
+            var _outputJS = document.getElementById("outputJS");
+            var _name = document.getElementById("name");
+            //        _outputJS.innerHTML = document.getElementById("txtInput").value;
+            console.log(_name.value);
+            _outputJS.innerHTML = "document.forms.name.value";
+
+            function val() {
+                var price = document.getElementById("txtPrice");
+                if (price.value > 0) {
+                    // do something when price is valid
+                    _outputJS.innerHTML = price.value;
+                } else {
+                    // do something when price is invalid
+                    console.log("price");
+                }
+            }
+
+            // two
+            document.getElementById("btnOk").addEventListener("click", checksAndRadios);
+
+            function checksAndRadios() {
+
+                var fun = document.getElementById("chkFun");
+                var lang = document.forms[0]["lang"];
+                var java = document.getElementById("radJava");
+                var php = document.getElementById("radPHP");
+                var js = document.getElementById("radJs");
+
+                console.log(fun.value);
+                console.log(java.value);
+                console.log(php.value);
+                console.log(js.value);
+//                console.log(js.innerHTML);  // undefined
+
+                console.log(fun.checked);
+                console.log(java.checked);
+                console.log(php.checked);
+                console.log(js.checked);
+
+                console.log(lang);
+
+                // show validate radio
+                var langRadios = document.getElementsByName("lang");
+                if (validateRadios(langRadios) == 0) {
+                    // error - no radio button selected
+                    alert("no selected");
+                } else {
+                    alert(validateRadios(langRadios));
+                }
+
+                function validateRadios(radioSet) {
+                    var selectCount = 0;
+                    for (i = 0; i < radioSet.length; i++) {
+                        if (radioSet[i].checked) {
+                            selectCount++;
+                        }
+                    }
+                    return selectCount;
+                }
+
+                console.log(i);  // i is global variable
+//               console.log(selectCount); // not defined
+            }
+            
+            // lst
+
+            document.getElementById("btnOklstAnimals").addEventListener("click", checkAnimal);
+            document.getElementById("lstAnimals").addEventListener("change", otherStatus);
+            function checkAnimal() {
+                var animal = document.getElementById("lstAnimals");
+                if (animal.selectedIndex > 0) {
+                    console.log(animal.value);
+                }
+            }
+
+            function otherStatus() {
+                if (this.selectedIndex === 5) {
+                    document.getElementById("txtOther").disabled = false;
+                } else {
+                    document.getElementById("txtOther").disabled = true;
+                }
+            }
+
+        </script>
+
+    </body>
+
+</html>

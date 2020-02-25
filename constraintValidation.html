@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--The core of constraint validation in JavaScript is the checkValidity() function. 
+The checkValidity() function works on either the form element or on an input element inside the form:
+
+Form.checkValidity() - returns true if all of the form's input elements' constraints have been met, 
+and false if one or more of the form's input elements' constraints have not been met.
+Element.checkValidity() - returns true if this Element's constraints have been met, and false if they have not been met.-->
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+
+        <form name="frm1">
+            <input type="text" id="txtInput" required placeholder="Enter some input."
+                   title="Expecting some input."><label id="errInput"></label><br><br>
+            <input type="text" id="txtNumber" required placeholder="Enter a number."
+                   pattern="\d+" title="Expecting a number."><label id="errNumber"></label><br>
+            <button id="btnTest">Test</button>   
+        </form>
+
+        <script>
+            document.getElementById("btnTest").addEventListener("click", validate);
+
+            function validate() {
+
+                // Form.checkValidity()
+
+                // if checkValidity() returns true, everything is valid
+                if (document.forms[0].checkValidity()) {
+                    console.log("everything is valid");
+
+                } else { // checkValidity() returned false - something's not valid
+                    console.log(document.getElementById("txtInput").validationMessage);
+                    console.log(document.getElementById("txtInput").validity);
+                    console.log(document.getElementById("txtNumber").validationMessage);
+                    console.log(document.getElementById("txtNumber").validity);
+                }
+
+                // Element.checkValidity()
+                var input = document.getElementById("txtInput");
+                var number = document.getElementById("txtNumber");
+
+                if (!input.checkValidity()) {
+                    document.getElementById("errInput").innerHTML = input.validationMessage;
+                }
+                if (!number.checkValidity()) {
+                    document.getElementById("errNumber").innerHTML = number.validationMessage;
+                }
+
+
+            }
+        </script>
+
+    </body>
+</html>
